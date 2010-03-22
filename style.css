@@ -1,1 +1,111 @@
 @CHARSET "UTF-8";
+
+body {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 76%;
+	background-image: url(images/body_bg.gif);
+}
+
+h1.page-title {
+	font-size: 20pt;
+	font-family: Verdana, "Trebuchet MS";
+	color: #5e256e;
+	font-weight: 400;
+}
+
+div#heading-spacer {
+	width: 960px;
+	height: 40px;	
+}
+
+h3.the-heading {
+	font-size: 18pt;
+	font-family: Arial, Verdana, "Trebuchet MS";
+	font-weight: 900;
+	color: #ffffff;
+	font-weight: 400;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	top: 4px;
+	left: 14px;
+}
+
+div#container {
+	width: 960px;
+	margin: 0 auto;
+}
+
+div#header {
+	width: 960px;
+	height:	91px;
+}
+
+div#otb-logo {
+	background-image: url(images/otb-logo.png);
+	width: 403px;
+	height: 91px;
+	float: left;
+}
+
+div#cl-logo {
+	background-image: url(images/cl-logo.png);
+	width: 202px;
+	height: 91px;
+	float: right;
+}
+
+div#top-bar {
+	width: 960px;
+	height: 33px;
+	background: #565656;
+	border-bottom: 1px solid #C7C7C7;
+	clear: both;	
+}
+
+div#top-bar-spacer {
+	width: 960px;
+	height: 24px;	
+}
+
+div#content-wrapper {
+	width: 960px;
+	margin: 0 auto;
+	background: #FFFFFF;	
+	border: 1px solid #C7C7C7;
+}
+
+div.content {
+	width: 880px;
+	margin:0 auto;
+	padding-bottom: 40px;
+}
+
+div.the-box {
+	position: relative;
+	width: 390px;
+	height: 323px;
+	border: 1px solid #E7E7E7;
+	background: transparent;
+	float: left;
+	z-index: 1;
+}
+
+div.the-title {
+	position: absolute;
+	width: 240px;
+	height: 34px;
+	top: -17px;
+	left: 32px;
+	background: #606060; 
+	z-index: 2;
+}
+
+img.the-box-bg {
+	position: absolute;
+	top: 0;
+	left: 0;	
+	z-index: 0;	
+}
+
+
