@@ -4,12 +4,6 @@
 // Project Goal - Facilitate buyers in configuring their projects/books
 // Based on - PHP, MySQL, HTML, CSS
 // Date - March 15th, 2010
-
-require 'scripts/dbconnect.php';
-include 'scripts/config.php';
-
-
-
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
