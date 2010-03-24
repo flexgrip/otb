@@ -101,7 +101,7 @@ div.content {
 	div.the-box {
 		position: relative;
 		width: 390px;
-		min-height: 323px;
+
 		border: 1px solid #E7E7E7;
 		background: transparent;
 		z-index: 1;

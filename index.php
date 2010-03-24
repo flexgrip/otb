@@ -11,15 +11,18 @@
 	<link rel = "stylesheet" type="text/css" href="style.css" >
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="interface.js"></script>
+
 	
-<!--  -->
+<!-- Ajax/js value scripting -->
 		<script type="text/javascript">
-		
+//		var order_id = "<?php print $_GET['order_id']; ?>"
+//		var user_id = "<?php print $_GET['user_id']; ?>"
 		</script>
+			
+		<script type="text/javascript" src="interface.js"></script>
 
 		<script type="text/javascript">
-//		function getPublication() {
+//		function getTodo() {
 //               $.get('interface.php?todo='+$('#login2').val(), function(data) {
 //                  if(data === 'allow') {  window.location = "index.php?code="+data+"&pass=64v50" }
 //                  if(data === 'dont') {$('#show').html("Invalid code. Please try again or email marketwise@communitylink.com.");}
@@ -30,7 +33,7 @@
 	
 </head>
 <body>
-
+<input type="hidden" id=""></input>
 	<div id="container">
 		<div id="header">
 			<div id="otb-logo"></div>
@@ -47,7 +50,11 @@
 				<div id="heading-spacer"></div>
 				<div class="the-box the-box-to-do">
 					<div class="the-title"><h3 class="the-heading">To-Do List</h3></div><img class="the-box-bg" src="images/boxbg.png" width="100%" height="100%" /><div class="the-text">
-					<p>test</p>
+					<script type="text/javascript">
+					$(document).ready(function() {
+					    getTodo("<?php echo $_GET['user_id']; ?>", "<?php echo $_GET['order_id']; ?>");
+					});
+					</script>
 					</div>
 				</div>
 				
