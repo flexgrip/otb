@@ -1,9 +1,5 @@
 @CHARSET "UTF-8";
 
-* {
-
-}
-
 body {
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 76%;
@@ -85,31 +81,56 @@ div.content {
 	padding-bottom: 40px;
 }
 
-div.the-box {
-	position: relative;
-	width: 390px;
-	height: 323px;
-	border: 1px solid #E7E7E7;
-	background: transparent;
-	float: left;
-	z-index: 1;
-}
+/*========================.
+|   Box positions only    |
+|________________________*/
 
-div.the-title {
-	position: absolute;
-	width: 240px;
-	height: 34px;
-	top: -17px;
-	left: 32px;
-	background: #606060; 
-	z-index: 2;
-}
-
-img.the-box-bg {
-	position: absolute;
-	top: 0;
-	left: 0;	
-	z-index: 0;	
-}
+	div.the-box-to-do {
+		float: left;
+	}
+	
+/*___END_BOX_POSITIONS___*/
 
 
+
+
+/*========================.
+|Universal box properties |
+|________________________*/
+
+	div.the-box {
+		position: relative;
+		width: 390px;
+		min-height: 323px;
+		border: 1px solid #E7E7E7;
+		background: transparent;
+		z-index: 1;
+	}
+	
+	div.the-title {
+		position: absolute;
+		width: 240px;
+		height: 34px;
+		top: -17px;
+		left: 32px;
+		background: #606060; 
+		z-index: 2;
+	}
+	
+	img.the-box-bg {
+		position: absolute;
+		top: 0;
+		left: 0;	
+		z-index: 0;	
+	}
+	
+	div.the-text {
+		background: transparent;
+		position: absolute;
+		width: 357px;
+		top: 30px;
+		left: 16px;
+		z-index: 3;
+	}
+
+/*___END_BOX_PROPERTIES___*/
