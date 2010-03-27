@@ -6,6 +6,10 @@ body {
 	background-image: url(images/body_bg.gif);
 }
 
+a.hand {
+	cursor: pointer;	
+}
+
 h1.page-title {
 	font-size: 20pt;
 	font-family: Verdana, "Trebuchet MS";
@@ -79,6 +83,12 @@ div.content {
 	width: 880px;
 	margin:0 auto;
 	padding-bottom: 40px;
+}
+
+div.the-box-template {
+	width: 444px;
+	float: right;
+	border: 3px dashed #E7E7E7;	
 }
 
 /*========================.

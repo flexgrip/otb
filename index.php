@@ -46,7 +46,7 @@
 			
 			<!-- BEGIN CONTENT -->
 			<div class="content">
-				<h1 class="page-title">Greetings Earthling,</h1><a href="" onClick="getTodo();">Get todo</a>
+				<h1 class="page-title">Greetings Earthling,</h1>
 				<div id="heading-spacer"></div>
 				<div class="the-box the-box-to-do">
 					<div class="the-title"><h3 class="the-heading">To-Do List</h3></div><img class="the-box-bg" src="images/boxbg.png" width="100%" height="100%" /><div class="the-text">
@@ -56,6 +56,10 @@
 					});
 					</script>
 					</div>
+				</div>
+				
+				<div class="the-box-template">
+					<img src="images/the-box-template.jpg" width="444" height="494" style="display: block;" />
 				</div>
 				
 			<div style="clear: both;"></div>	

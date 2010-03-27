@@ -1,7 +1,2 @@
-<?php 
-mysql_connect("localhost", "root", "prolls") or die(mysql_error());
-//echo "Connected to MySQL<br />";
-mysql_select_db("otb") or die(mysql_error());
-//echo "Connected to Database";
-?>
+<?php mysql_connect("localhost", "root", "") or die(mysql_error()); mysql_select_db("otb") or die(mysql_error()); ?>
 

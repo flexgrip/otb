@@ -10,7 +10,9 @@ function getTodo(user_id,order_id) {
        }
 
 function loadPreview(pub_id,page_num) {
-    var data = '<img src=\"interface.php?pub_id='+pub_id+'&page_num='+page_num+'&task=loadPreview\" />';
-	   $('.the-box-template').html(data);
+       var data = '<img src=\"interface.php?pub_id='+pub_id+'&page_num='+page_num+'&task=loadPreview\" />';
+ 	   $('.the-box-template').html(data);
+ 	  /* var tbHigh = $('.the-text').height();
+ 	   $('.the-box-to-do').height(tbHigh + 35); */
 }
     
