@@ -32,6 +32,7 @@ require 'scripts/dbconnect.php';
 #                                                                                 #
 #                                                                                 #
 if ($task == "todo") { $pub_id = getpub($user_id, $order_id); echo todo($pub_id); }
+if ($task == "getMap") { echo getMap($pub_id, $page_num); }
 ###################################################################################
 
 
@@ -91,7 +92,7 @@ if ($task == "todo") { $pub_id = getpub($user_id, $order_id); echo todo($pub_id)
 		$filename = "templates/".$pub_id."/images/".$pub_id."_Page_".$lz.$page_num.".jpg";
 		
 		// Not sure if we need to set the content type... if so:
-		header('Content-type: image/jpeg');
+		/* header('Content-type: image/jpeg'); */
 		
 		// Ratio calc: W/H*444 = New height
 		list($width, $height) = getimagesize($filename);
@@ -105,6 +106,42 @@ if ($task == "todo") { $pub_id = getpub($user_id, $order_id); echo todo($pub_id)
 		
 		// Write the image to /dev/null > We could set nice -1 in GD libs later if needed.
 		imagejpeg($image_p, null, 100);
+	}
+	
+	
+	function getMap($pub_id, $page_num) {
+		
+		// Get the height of the original image and then determine the ratio to size the image maps down.
+		// This is just copied from the image resizing function.
+		
+			$pub_id = sprintf("%05d",$pub_id); 
+			
+			$lz = "0"; if ($page_num >= 10) { $lz = ""; }
+			$filename = "templates/".$pub_id."/images/".$pub_id."_Page_".$lz.$page_num.".jpg";
+			
+			// Ratio calc: W/H*444 = New height
+			list($width, $height) = getimagesize($filename);
+			
+			$ratiox = 444 / $width;
+			$ratioy = (444 * $height / $width) / $height;
+		
+		$pub_id = sprintf("%05d",$pub_id);
+		$query = "SELECT * FROM assets WHERE pub_id = '".$pub_id."' AND page_num = '".$page_num."' ORDER BY asset_typ";
+		$result = mysql_query($query) or die(mysql_error());
+		
+		$num = 0;
+		// Start the image map
+		echo "<MAP NAME=\"map\">";
+		while($row = mysql_fetch_array($result)){
+				$x1 = $row['asset_x1'] * $ratiox;
+				$x2 = $row['asset_x2'] * $ratiox;
+				$y1 = $row['asset_y1'] * $ratioy;
+				$y2 = $row['asset_y2'] * $ratioy;
+				echo "<AREA SHAPE=\"rect\" COORDS=\"".$x1.",".$y1.",".$x2.",".$y2."\" HREF=\"".$num."\" style=\"background: #000000;\">";
+			$num++;
+			}
+	
+		echo "</MAP>";
 	}
 	
 
