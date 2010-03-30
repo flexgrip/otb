@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL);
-
+$task = $_GET['task'];
 
 ###################### Functions that DO NOT require MySQL ########################
 #  For things like using GD to export to /dev/null we need to load these first    #
@@ -113,7 +113,13 @@ if ($task == "getMap") { echo getMap($pub_id, $page_num); }
 		
 		// Get the height of the original image and then determine the ratio to size the image maps down.
 		// This is just copied from the image resizing function.
-		
+		$query = "SELECT * FROM assets WHERE pub_id = '".$pub_id."' AND page_num = '1' AND asset_num = '0'";
+		$result = mysql_query($query) or die(mysql_error());
+			while($row = mysql_fetch_array($result)){
+							$document_width = $row['asset_x2'] - $row['asset_x1'];
+						}
+						
+			/*		
 			$pub_id = sprintf("%05d",$pub_id); 
 			
 			$lz = "0"; if ($page_num >= 10) { $lz = ""; }
@@ -121,26 +127,30 @@ if ($task == "getMap") { echo getMap($pub_id, $page_num); }
 			
 			// Ratio calc: W/H*444 = New height
 			list($width, $height) = getimagesize($filename);
+			$ratioy = (444 * $height / $width) / $height; */
 			
-			$ratiox = 444 / $width;
-			$ratioy = (444 * $height / $width) / $height;
+			$ratio = 444 / $document_width;
+			
 		
 		$pub_id = sprintf("%05d",$pub_id);
-		$query = "SELECT * FROM assets WHERE pub_id = '".$pub_id."' AND page_num = '".$page_num."' ORDER BY asset_typ";
+		$query = "SELECT  * FROM assets WHERE pub_id = '".$pub_id."' AND page_num = '".$page_num."' ORDER BY CASE  WHEN asset_typ = 'Page' THEN 1 WHEN asset_typ = 'Body copy' THEN 5 WHEN asset_img = '1' THEN 4 ELSE 3 END , asset_typ";
 		$result = mysql_query($query) or die(mysql_error());
 		
 		$num = 0;
+		$page_spread = 0;
 		// Start the image map
 		echo "<MAP NAME=\"map\">";
-		while($row = mysql_fetch_array($result)){
-				$x1 = $row['asset_x1'] * $ratiox;
-				$x2 = $row['asset_x2'] * $ratiox;
-				$y1 = $row['asset_y1'] * $ratioy;
-				$y2 = $row['asset_y2'] * $ratioy;
-				echo "<AREA SHAPE=\"rect\" COORDS=\"".$x1.",".$y1.",".$x2.",".$y2."\" HREF=\"".$num."\" style=\"background: #000000;\">";
-			$num++;
-			}
-	
+			while($row = mysql_fetch_array($result)){
+					if ($row['asset_x1'] == 0 && $row['asset_typ'] == "Page" && $num == 0) { $document_width = 0; } 
+					$x1 = ($row['asset_x1'] - $document_width) * $ratio; $x1=(int)$x1;
+					$x2 = ($row['asset_x2'] - $document_width) * $ratio; $x2=(int)$x2;
+					$y1 = $row['asset_y1'] * $ratio; $y1=(int)$y1;
+					$y2 = $row['asset_y2'] * $ratio; $y2=(int)$y2;
+					if ($row['asset_typ'] != "Page") {
+						echo "<AREA SHAPE=\"rect\" COORDS=\"".$x1.",".$y1.",".$x2.",".$y2."\" HREF=\"".$num."\" id=\"".$row['asset_typ'].$row['asset_num']."\">";
+					}
+					$num++;
+				}
 		echo "</MAP>";
 	}
 	

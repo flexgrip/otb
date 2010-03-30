@@ -11,7 +11,10 @@
 	<link rel = "stylesheet" type="text/css" href="style.css" >
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="js/jquery.maphilight.min.js"></script>
+<script>
 
+</script>
 	
 <!-- Ajax/js value scripting -->
 		<script type="text/javascript">
@@ -22,13 +25,17 @@
 		<script type="text/javascript" src="interface.js"></script>
 
 		<script type="text/javascript">
-//		function getTodo() {
-//               $.get('interface.php?todo='+$('#login2').val(), function(data) {
-//                  if(data === 'allow') {  window.location = "index.php?code="+data+"&pass=64v50" }
-//                  if(data === 'dont') {$('#show').html("Invalid code. Please try again or email marketwise@communitylink.com.");}
-//
-//               });
-//               }
+		$.fn.maphilight.defaults = {
+				fill: true,
+				fillColor: '723882',
+				fillOpacity: 0.7,
+				stroke: true,
+				strokeColor: '000000',
+				strokeOpacity: 1,
+				strokeWidth: 2,
+				fade: true,
+				alwaysOn: false
+			}
 		</script>
 	
 </head>

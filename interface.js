@@ -10,10 +10,11 @@ function getTodo(user_id,order_id) {
        }
 
 function loadPreview(pub_id,page_num) {
-    var data = '<img src=\"interface.php?pub_id='+pub_id+'&page_num='+page_num+'&task=loadPreview\" usemap="#map" border="0"/>';
+    var data = '<img src=\"interface.php?pub_id='+pub_id+'&page_num='+page_num+'&task=loadPreview\" usemap="#map" border="0" class="map"/>';
     $.get('interface.php?pub_id='+pub_id+'&page_num='+page_num+'&task=getMap', function(map) {
     	data = data + map;
- 	    $('.the-box-template').html(data);	
+ 	    $('.the-box-template').html(data);
+ 	    $('.map').maphilight();
     });
 
 	 }
