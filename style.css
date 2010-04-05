@@ -83,12 +83,21 @@ div.content {
 	width: 880px;
 	margin:0 auto;
 	padding-bottom: 40px;
+	position: relative;
 }
 
 div.the-box-template {
 	width: 444px;
 	float: right;
 	border: 3px dashed #E7E7E7;	
+}
+
+div#load {
+	display: none;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 444px;
 }
 
 /*========================.
@@ -143,4 +152,60 @@ div.the-box-template {
 		z-index: 3;
 	}
 
+	div.the-text h3 a {
+		color: #4C4C4C; 
+	}
+	
+	div.the-text h3 a:hover {
+		color: #5D256D; 
+	}
+
+	div.the-text a {
+		color: #000000; 
+		text-decoration: none;
+	}
+	
+	div.the-text a:hover {
+		color: #606060; 
+		text-decoration: none;
+	}
+
 /*___END_BOX_PROPERTIES___*/
+
+
+
+/*========================.
+|To-do list properties    |
+|________________________*/
+
+
+
+ul.todo {
+	margin-left: -20px;
+}
+
+ul.todo li.need {
+	background: url(images/need.png) 0px -1px no-repeat;	
+	height: 20px;
+	padding-left: 20px;
+	list-style-type: none;
+}
+
+ul.todo li.have {
+	background: url(images/have.png) 0px top no-repeat;	
+	height: 20px;
+	padding-left: 20px;
+	list-style-type: none;	
+}
+
+/*___END_TODO_PROPERTIES___*/
+
+
+
+/*========================.
+| Preview properties      |
+|________________________*/
+
+#load {
+		display: none;
+	}

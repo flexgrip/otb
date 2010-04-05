@@ -12,9 +12,6 @@
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="js/jquery.maphilight.min.js"></script>
-<script>
-
-</script>
 	
 <!-- Ajax/js value scripting -->
 		<script type="text/javascript">
@@ -25,17 +22,17 @@
 		<script type="text/javascript" src="interface.js"></script>
 
 		<script type="text/javascript">
-		$.fn.maphilight.defaults = {
-				fill: true,
-				fillColor: '723882',
-				fillOpacity: 0.0,
-				stroke: true,
-				strokeColor: '723882',
-				strokeOpacity: .6,
-				strokeWidth: 2,
-				fade: true,
-				alwaysOn: true
-			}
+        $.fn.maphilight.defaults = {
+                fill: true,
+                fillColor: '723882',
+                fillOpacity: 0.0,
+                stroke: true,
+                strokeColor: '723882',
+                strokeOpacity: .6,
+                strokeWidth: 2,
+                fade: false,
+                alwaysOn: true
+        }
 		</script>
 	
 </head>
@@ -68,6 +65,10 @@
 				<div class="the-box-template">
 					<img src="images/the-box-template.jpg" width="444" height="494" style="display: block;" />
 				</div>
+				<div class="hidden" id="load">
+					<img src="images/loading46-edited.gif" width="444" height="550" style="display: block;" />
+				</div>
+				
 				
 			<div style="clear: both;"></div>	
 			</div>
