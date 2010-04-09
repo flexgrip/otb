@@ -8,8 +8,8 @@
 		var button = $('#button1'), interval;
 		
 		new AjaxUpload(button, {
-			action: 'do-nothing.htm', 
-			name: 'myfile',
+			action: 'scripts/uploaded.php?user_id=<?php echo $user_id; ?>&order_id=<?php echo $order_id; ?>&page_num=<?php echo $page_num; ?>', 
+			name: 'userfile',
 			onSubmit : function(file, ext){
 				// change button text, when user selects file			
 				button.text('Uploading');
@@ -37,7 +37,7 @@
 				this.enable();
 				
 				// add file to the list
-				//$('<li></li>').appendTo('#example1 .files').text(file);						
+				$('<li></li>').appendTo('#upload1 .files').text(file);						
 			}
 		});
 	});
@@ -56,7 +56,7 @@ First name: <input type="text" name="firstname" />
 
 <?php if ($type == "image") { ?>
 	<ul>
-		<li id="example1" class="example">
+		<li id="upload1" class="upload-list">
 			<p>You can style button as you want</p>
 			<div class="wrapper">
 				<div id="button1" class="button">Upload</div>

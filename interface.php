@@ -30,7 +30,7 @@ require 'scripts/dbconnect.php';
 #                                                                                 #
 #                                                                                 #
 #                                                                                 #
-if ($task == "todo") { $pub_id = getpub($user_id, $order_id); echo todo($pub_id); }
+if ($task == "todo") { $pub_id = getpub($user_id, $order_id); echo todo($pub_id, $user_id, $order_id); }
 if ($task == "getMap") { echo getMap($pub_id, $page_num); }
 ###################################################################################
  
@@ -63,7 +63,7 @@ if ($task == "getMap") { echo getMap($pub_id, $page_num); }
 	}
  
 	
-	function todo($pub_id) {
+	function todo($pub_id, $user_id, $order_id) {
 		
 	$query = "SELECT * FROM assets WHERE pub_id = '".$pub_id."' ORDER BY page_num, CASE WHEN asset_typ = 'Page' THEN 1 ELSE 2 END , asset_typ";
 	$result = mysql_query($query) or die(mysql_error());
@@ -74,7 +74,7 @@ if ($task == "getMap") { echo getMap($pub_id, $page_num); }
 		if ($num==0 && $row['asset_typ'] == "Page") { echo "<h3 class=\"todo-page-title\"><a class=\"hand\" onClick=\"loadPreview(".$row['pub_id'].",".$row['page_num'].")\">Cover ".$row['asset_typ']."</a></h3>\n<div><ul id=\"todo\" class=\"todo\">"; }
 	    if ($num>=1 && $row['asset_typ'] == "Page") { echo "</ul></div>\n<h3 class=\"todo-page-title\"><a class=\"hand\" onClick=\"loadPreview(".$row['pub_id'].",".$row['page_num'].")\">".$row['asset_typ']." ".$row['page_num']."</a></h3>\n<div><ul id=\"todo\" class=\"todo\">"; }
 		if ($num>=1 && $row['asset_typ'] != "Page") { if ($row['asset_num'] <= 1) { $asset_num = ""; } else { $asset_num = $row['asset_num']; } 
-		echo "<li class=\"need\"><a href=\"#\">".$row['asset_typ']." ".$asset_num."</a></li>"; }
+		echo "<li class=\"need\"><a href=\"upload.php?id=".$row['id']."&user_id=".$user_id."&order_id=".$order_id."&pub_id=".$pub_id."&page_num=".$row['page_num']."&asset_type=".$row['asset_typ']."&asset_num=".$row['asset_num']."\">".$row['asset_typ']." ".$asset_num."</a></li>"; }
 		$num++;
 		
 		
