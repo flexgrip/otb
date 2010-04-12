@@ -25,7 +25,7 @@ if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
 			}
 		else
 			{
-				mysql_query("INSERT INTO completed (order_id, user_id, asset_id, data) VALUES ('".$order_id."', '".$user_id."', '".$asset_id."', '".$data."')");
+				mysql_query("INSERT INTO completed (order_id, user_id, asset_id, data) VALUES ('".$order_id."', '".$user_id."', '".$asset_id."', '".$uploadfile."')");
 			} 
 
 } else { echo "error"; }

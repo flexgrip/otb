@@ -8,11 +8,20 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
+
+	<link rel = "stylesheet" type="text/css" href="css/thickbox.css" >
 	<link rel = "stylesheet" type="text/css" href="style.css" >
+
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="js/jquery.maphilight.min.js"></script>
 	
+	<script type="text/javascript" src="js/jquery.maphilight.min.js"></script>
+					<script type="text/javascript">
+					$(document).ready(function() {
+					    getTodo("<?php echo $_GET['user_id']; ?>", "<?php echo $_GET['order_id']; ?>");
+					});
+					</script>
+	<script type="text/javascript" src="js/thickbox-compressed.js"></script>
 <!-- Ajax/js value scripting -->
 		<script type="text/javascript">
 //		var order_id = "<?php print $_GET['order_id']; ?>"
@@ -50,15 +59,12 @@
 			
 			<!-- BEGIN CONTENT -->
 			<div class="content">
-				<h1 class="page-title">Greetings Earthling,</h1>
+				<h1 class="page-title"><a href="upload.php?height=300&width=300" class="thickbox">test</a>Greetings Earthling,</h1>
 				<div id="heading-spacer"></div>
 				<div class="the-box the-box-to-do">
 					<div class="the-title"><h3 class="the-heading">To-Do List</h3></div><img class="the-box-bg" src="images/boxbg.png" width="100%" height="100%" /><div class="the-text">
-					<script type="text/javascript">
-					$(document).ready(function() {
-					    getTodo("<?php echo $_GET['user_id']; ?>", "<?php echo $_GET['order_id']; ?>");
-					});
-					</script>
+					
+
 					</div>
 				</div>
 				
@@ -77,6 +83,5 @@
 	
 	
 	</div><!-- END #CONTAINER -->
-
 </body>
 </html>

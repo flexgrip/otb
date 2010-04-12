@@ -8,8 +8,16 @@
 		var button = $('#button1'), interval;
 		
 		new AjaxUpload(button, {
-			action: 'scripts/uploaded.php?user_id=<?php echo $user_id; ?>&order_id=<?php echo $order_id; ?>&page_num=<?php echo $page_num; ?>', 
+			action: 'scripts/uploaded.php', 
 			name: 'userfile',
+			data: {
+			    user_id : '<?php echo $user_id; ?>',
+			    order_id : '<?php echo $order_id; ?>',
+			    page_num : '<?php echo $page_num; ?>',
+			    asset_num : '<?php echo $asset_num; ?>',
+			    pub_id : '<?php echo $pub_id; ?>',
+			    asset_typ : '<?php echo $type; ?>'
+			  },
 			onSubmit : function(file, ext){
 				// change button text, when user selects file			
 				button.text('Uploading');
@@ -54,7 +62,7 @@ First name: <input type="text" name="firstname" />
 	
 <?php } ?>
 
-<?php if ($type == "image") { ?>
+<?php if ($img == "1") { ?>
 	<ul>
 		<li id="upload1" class="upload-list">
 			<p>You can style button as you want</p>
