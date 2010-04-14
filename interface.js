@@ -4,21 +4,33 @@
 function getTodo(user_id,order_id) {
        $.get('interface.php?user_id='+user_id+'&order_id='+order_id+'&task=todo', function(data) {
     	   $('.the-text').html(data);
-    	   $(".the-text").accordion( { autoHeight: false } );
+    	   $(".the-text").accordion('destroy').accordion( { autoHeight: false } );
     	   var tbHigh = $('.the-text').height();
     	   $('.the-box-to-do').height(tbHigh + 375);
+    	   tb_init('a.thickbox');
        });
        }
 
-function loadPreview(pub_id,page_num) {
+function refreshTodo(user_id,order_id) {
+    $.get('interface.php?user_id='+user_id+'&order_id='+order_id+'&task=todo', function(data) {
+ 	   $('.the-text').html(data);
+ 	   $(".the-text").accordion('destroy').accordion( { autoHeight: false } );
+ 	   var tbHigh = $('.the-text').height();
+ 	   $('.the-box-to-do').height(tbHigh + 375);
+ 	   tb_init('a.thickbox');
+    });
+    }
+
+function loadPreview(pub_id,page_num,user_id,order_id) {
 	/* $('#load').fadeIn('normal');
     $('.the-box-template').fadeOut('normal'); */
     
-    var data = '<img src=\"interface.php?pub_id='+pub_id+'&page_num='+page_num+'&task=loadPreview\" usemap="#map" border="0" class="map"/>';
-    $.get('interface.php?pub_id='+pub_id+'&page_num='+page_num+'&task=getMap', function(map) {
+    var data = '<img src=\"interface.php?pub_id='+pub_id+'&page_num='+page_num+'&user_id='+user_id+'&order_id='+order_id+'&task=loadPreview\" usemap="#map" border="0" class="map"/>';
+    $.get('interface.php?pub_id='+pub_id+'&page_num='+page_num+'&user_id='+user_id+'&order_id='+order_id+'&task=getMap', function(map) {
     	data = data + map;
  	    $('.the-box-template').html(data);
 	    $('.map').maphilight();
+	 	tb_init('area.thickboxmap');
     });
     
     /* $('.the-box-template').fadeIn('normal');

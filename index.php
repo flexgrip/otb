@@ -14,14 +14,15 @@
 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
-	
 	<script type="text/javascript" src="js/jquery.maphilight.min.js"></script>
+	<script type="text/javascript" src="js/thickbox-compressed.js"></script>
+
 					<script type="text/javascript">
 					$(document).ready(function() {
 					    getTodo("<?php echo $_GET['user_id']; ?>", "<?php echo $_GET['order_id']; ?>");
 					});
 					</script>
-	<script type="text/javascript" src="js/thickbox-compressed.js"></script>
+
 <!-- Ajax/js value scripting -->
 		<script type="text/javascript">
 //		var order_id = "<?php print $_GET['order_id']; ?>"
@@ -59,7 +60,7 @@
 			
 			<!-- BEGIN CONTENT -->
 			<div class="content">
-				<h1 class="page-title"><a href="upload.php?height=300&width=300" class="thickbox">test</a>Greetings Earthling,</h1>
+				<h1 class="page-title">Greetings Earthling,</h1>
 				<div id="heading-spacer"></div>
 				<div class="the-box the-box-to-do">
 					<div class="the-title"><h3 class="the-heading">To-Do List</h3></div><img class="the-box-bg" src="images/boxbg.png" width="100%" height="100%" /><div class="the-text">
@@ -75,6 +76,9 @@
 					<img src="images/loading46-edited.gif" width="444" height="550" style="display: block;" />
 				</div>
 				
+				<div class="the-box-support-options">
+					<img src="images/support_options.jpg" />
+				</div>
 				
 			<div style="clear: both;"></div>	
 			</div>

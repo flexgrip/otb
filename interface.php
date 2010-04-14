@@ -6,7 +6,7 @@ $task = $_GET['task'];
 #  because if not, there might be whitespace before the content string.           #
 #_________________________________________________________________________________#
  
-if ($task == "loadPreview") { echo loadPreview($pub_id, $page_num); }
+if ($task == "loadPreview") { echo loadPreview($pub_id, $page_num, $user_id, $order_id); }
  
 ###################################################################################
  
@@ -31,7 +31,7 @@ require 'scripts/dbconnect.php';
 #                                                                                 #
 #                                                                                 #
 if ($task == "todo") { $pub_id = getpub($user_id, $order_id); echo todo($pub_id, $user_id, $order_id); }
-if ($task == "getMap") { echo getMap($pub_id, $page_num); }
+if ($task == "getMap") { echo getMap($pub_id, $page_num, $user_id, $order_id); }
 ###################################################################################
  
  
@@ -69,12 +69,28 @@ if ($task == "getMap") { echo getMap($pub_id, $page_num); }
 	$result = mysql_query($query) or die(mysql_error());
 	
 	$num = 0;
+	$listclass = "";
 	// Print out the contents of each row into a table 
 	while($row = mysql_fetch_array($result)){
-		if ($num==0 && $row['asset_typ'] == "Page") { echo "<h3 class=\"todo-page-title\"><a class=\"hand\" onClick=\"loadPreview(".$row['pub_id'].",".$row['page_num'].")\">Cover ".$row['asset_typ']."</a></h3>\n<div><ul id=\"todo\" class=\"todo\">"; }
-	    if ($num>=1 && $row['asset_typ'] == "Page") { echo "</ul></div>\n<h3 class=\"todo-page-title\"><a class=\"hand\" onClick=\"loadPreview(".$row['pub_id'].",".$row['page_num'].")\">".$row['asset_typ']." ".$row['page_num']."</a></h3>\n<div><ul id=\"todo\" class=\"todo\">"; }
+		//First check to see if the asset id exists
+		$sql = mysql_query("SELECT * FROM completed WHERE user_id = '".$user_id."' AND asset_id = '".$row['id']."' AND order_id = '".$order_id."'") or die ("query 1: " . mysql_error());
+		$mysql_num = mysql_num_rows($sql);
+			if ($mysql_num >= 1) { $listclass = "have"; }
+			else { $listclass = "need";} 
+
+		//Now check for empty pages (REDO THIS IMMEDIATELY. TOO MANY SQL CALLS. YOU SHOULD BE ABLE TO DO THIS IN ONE QUERY IF YOU WERE REALLY AS SMART AS YOU SAY YOU ARE.)	
+		if ($row['asset_typ'] == "Page") {
+			$sql = mysql_query("SELECT * FROM assets WHERE page_num = '".$row['page_num']."' AND pub_id = '".$pub_id."'") or die ("query 1: " . mysql_error());
+			$mysql_num = mysql_num_rows($sql);
+				if ($mysql_num >= 2) { $emptypage = "not-empty"; }
+				else { $emptypage = "is-empty";} 
+		}
+		
+		//Now echo out the tree
+		if ($num==0 && $row['asset_typ'] == "Page") { echo "<h3 class=\"todo-page-title ".$emptypage."\"><a class=\"hand\" onClick=\"loadPreview(".$row['pub_id'].",".$row['page_num'].",'".$user_id."','".$order_id."')\">Cover ".$row['asset_typ']."</a></h3>\n<div><ul id=\"todo\" class=\"todo\">"; }
+	    if ($num>=1 && $row['asset_typ'] == "Page") { echo "</ul></div>\n<h3 class=\"todo-page-title ".$emptypage."\"><a class=\"hand\" onClick=\"loadPreview(".$row['pub_id'].",".$row['page_num'].",'".$user_id."','".$order_id."')\">".$row['asset_typ']." ".$row['page_num']."</a></h3>\n<div><ul id=\"todo\" class=\"todo\">"; }
 		if ($num>=1 && $row['asset_typ'] != "Page") { if ($row['asset_num'] <= 1) { $asset_num = ""; } else { $asset_num = $row['asset_num']; } 
-		echo "<li class=\"need\"><a class=\"thickbox\" href=\"upload.php?id=".$row['id']."&user_id=".$user_id."&order_id=".$order_id."&pub_id=".$pub_id."&page_num=".$row['page_num']."&asset_type=".$row['asset_typ']."&asset_num=".$row['asset_num']."&img=".$row['asset_img']."&type=".$row['asset_typ']."\">".$row['asset_typ']." ".$asset_num."</a></li>"; }
+		echo "<li class=\"".$listclass."\"><a title=\"Page ".$row['page_num']." - ".$row['asset_typ']." ".$row['asset_num']."\" class=\"thickbox\" href=\"upload.php?id=".$row['id']."&user_id=".$user_id."&order_id=".$order_id."&pub_id=".$pub_id."&page_num=".$row['page_num']."&asset_type=".$row['asset_typ']."&asset_num=".$row['asset_num']."&img=".$row['asset_img']."&type=".$row['asset_typ']."&KeepThis=true&TB_iframe=true&height=140&width=340\">".$row['asset_typ']." ".$asset_num."</a></li>"; }
 		$num++;
 		
 		
@@ -83,7 +99,7 @@ if ($task == "getMap") { echo getMap($pub_id, $page_num); }
 	}	
  
  
-	function loadPreview($pub_id, $page_num) {
+	function loadPreview($pub_id, $page_num, $user_id, $order_id) {
 		// add more up to four leading zeros because Brad uses an apple computer
  
 		$pub_id = sprintf("%05d",$pub_id); 
@@ -109,7 +125,7 @@ if ($task == "getMap") { echo getMap($pub_id, $page_num); }
 	}
  
  
-	function getMap($pub_id, $page_num) {
+	function getMap($pub_id, $page_num, $user_id, $order_id) {
  
 		// Get the height of the original image and then determine the ratio to size the image maps down.
 		// This is just copied from the image resizing function.
@@ -148,7 +164,7 @@ if ($task == "getMap") { echo getMap($pub_id, $page_num); }
 					$y1 = $row['asset_y1'] * $ratio; $y1=(int)$y1;
 					$y2 = $row['asset_y2'] * $ratio; $y2=(int)$y2;
 					if ($row['asset_typ'] != "Page") {
-						echo "<AREA SHAPE=\"rect\" COORDS=\"".$x1.",".$y1.",".$x2.",".$y2."\" HREF=\"".$num."\" id=\"".$row['asset_typ'].$row['asset_num']."\">";
+						echo "<AREA SHAPE=\"rect\" COORDS=\"".$x1.",".$y1.",".$x2.",".$y2."\" title=\"Page ".$row['page_num']." - ".$row['asset_typ']." ".$row['asset_num']."\" class=\"thickboxmap\" href=\"upload.php?id=".$row['id']."&user_id=".$user_id."&order_id=".$order_id."&pub_id=".$pub_id."&page_num=".$row['page_num']."&asset_type=".$row['asset_typ']."&asset_num=".$row['asset_num']."&img=".$row['asset_img']."&type=".$row['asset_typ']."&KeepThis=true&TB_iframe=true&height=140&width=340\" id=\"".$row['asset_typ'].$row['asset_num']."\">";
 					}
 					$num++;
 				}

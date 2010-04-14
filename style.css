@@ -172,6 +172,11 @@ div#load {
 
 /*___END_BOX_PROPERTIES___*/
 
+div.the-box-support-options {
+	float: right;
+	margin-top: 30px;
+	margin-right: 10px;
+}
 
 
 /*========================.
@@ -197,6 +202,10 @@ ul.todo li.have {
 	padding-left: 20px;
 	list-style-type: none;	
 }
+
+.is-empty {
+	display: none;
+	}
 
 /*___END_TODO_PROPERTIES___*/
 
