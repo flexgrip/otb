@@ -30,7 +30,7 @@ function loadPreview(pub_id,page_num,user_id,order_id) {
     	data = data + map;
  	    $('.the-box-template').html(data);
 	    $('.map').maphilight();
-	 	tb_init('area.thickboxmap');
+	 	tb_init('.thickmap');
     });
     
     /* $('.the-box-template').fadeIn('normal');

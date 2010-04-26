@@ -164,7 +164,7 @@ if ($task == "getMap") { echo getMap($pub_id, $page_num, $user_id, $order_id); }
 					$y1 = $row['asset_y1'] * $ratio; $y1=(int)$y1;
 					$y2 = $row['asset_y2'] * $ratio; $y2=(int)$y2;
 					if ($row['asset_typ'] != "Page") {
-						echo "<AREA SHAPE=\"rect\" COORDS=\"".$x1.",".$y1.",".$x2.",".$y2."\" title=\"Page ".$row['page_num']." - ".$row['asset_typ']." ".$row['asset_num']."\" class=\"thickboxmap\" href=\"upload.php?id=".$row['id']."&user_id=".$user_id."&order_id=".$order_id."&pub_id=".$pub_id."&page_num=".$row['page_num']."&asset_type=".$row['asset_typ']."&asset_num=".$row['asset_num']."&img=".$row['asset_img']."&type=".$row['asset_typ']."&KeepThis=true&TB_iframe=true&height=140&width=340\" id=\"".$row['asset_typ'].$row['asset_num']."\">";
+						echo "<AREA SHAPE=\"rect\" COORDS=\"".$x1.",".$y1.",".$x2.",".$y2."\" title=\"Page ".$row['page_num']." - ".$row['asset_typ']." ".$row['asset_num']."\" class=\"thickmap\" href=\"upload.php?id=".$row['id']."&user_id=".$user_id."&order_id=".$order_id."&pub_id=".$pub_id."&page_num=".$row['page_num']."&asset_type=".$row['asset_typ']."&asset_num=".$row['asset_num']."&img=".$row['asset_img']."&type=".$row['asset_typ']."&KeepThis=true&TB_iframe=true&height=140&width=340\" id=\"".$row['asset_typ'].$row['asset_num']."\">";
 					}
 					$num++;
 				}

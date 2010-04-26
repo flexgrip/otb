@@ -4,7 +4,6 @@
 	
     <script type="text/javascript" src="js/ajaxupload.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
 		<script>
 			function submitText() {
 				$.post("textin.php", { 
@@ -20,6 +19,7 @@
                     if(data === '1') { $('#resp').html("Successfuly saved!"); }
                     if(data === '0') { $('#resp').html("Error: Please try again."); }
                     parent.getTodo("<?php echo $_GET['user_id']; ?>", "<?php echo $_GET['order_id']; ?>");
+                    parent.loadPreview("<?php echo $_GET['pub_id']; ?>", "<?php echo $_GET['page_num']; ?>","<?php echo $_GET['user_id']; ?>", "<?php echo $_GET['order_id']; ?>");
 				} );
 //               $.get('textin.php?='+$('#login2').val(), function(data) {
 //                  if(data === 'allow') {  window.location = "index.php?code="+data+"&pass=64v50" }
