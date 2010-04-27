@@ -31,6 +31,12 @@ function loadPreview(pub_id,page_num,user_id,order_id) {
  	    $('.the-box-template').html(data);
 	    $('.map').maphilight();
 	 	tb_init('.thickmap');
+	 	$('map *').tooltip({ 
+	 	    track: true, 
+	 	    delay: 0, 
+	 	    showURL: false, 
+	 	    extraClass: "right" 
+	 	}); 
     });
     
     /* $('.the-box-template').fadeIn('normal');

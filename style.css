@@ -218,3 +218,21 @@ ul.todo li.have {
 #load {
 		display: none;
 	}
+
+/*___END_PREVIEW_PROPERTIES___*/
+
+
+
+/*========================.
+| Jquery tooltip old      |
+|________________________*/	
+#tooltip {
+	position: absolute;
+	z-index: 3000;
+	border: 0px solid #fff;
+	background-color: #383838;
+	padding: 18px;
+	opacity: 0.90;
+	color: #ffffff;
+}
+	#tooltip h3, #tooltip div { margin: 0; }

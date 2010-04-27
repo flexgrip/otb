@@ -10,12 +10,17 @@
 <head>
 
 	<link rel = "stylesheet" type="text/css" href="css/thickbox.css" >
-	<link rel = "stylesheet" type="text/css" href="style.css" >
+	<link rel = "stylesheet" type="text/css" href="style.css" > 
 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="js/jquery.maphilight.min.js"></script>
 	<script type="text/javascript" src="js/thickbox-compressed.js"></script>
+	<script type="text/javascript" src="js/jquery.dimensions.min.js"></script>
+	<script type="text/javascript" src="js/jquery.tooltip.min.js"></script>
+
+
+
 
 					<script type="text/javascript">
 					$(document).ready(function() {
@@ -47,6 +52,7 @@
 	
 </head>
 <body>
+
 <input type="hidden" id=""></input>
 	<div id="container">
 		<div id="header">
