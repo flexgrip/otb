@@ -29,18 +29,31 @@ function loadPreview(pub_id,page_num,user_id,order_id) {
     $.get('interface.php?pub_id='+pub_id+'&page_num='+page_num+'&user_id='+user_id+'&order_id='+order_id+'&task=getMap', function(map) {
     	data = data + map;
  	    $('.the-box-template').html(data);
-	    $('.map').maphilight();
-	 	tb_init('.thickmap');
-	 	$('map *').tooltip({ 
-	 	    track: true, 
-	 	    delay: 0, 
-	 	    showURL: false, 
-	 	    extraClass: "right" 
-	 	}); 
+		$('a.tips').tooltip({
+		  track: true,
+		  delay: 0,
+		  showURL: false,
+		  extraClass: "right"
+		}); 
     });
     
     /* $('.the-box-template').fadeIn('normal');
     $('#load').fadeOut('normal'); */
 
 	 }
+
+function panel(id,user_id,order_id,pub_id,page_num,asset_type,asset_num,img,type) {
+	$.get('upload.php?id='+id+'&user_id='+user_id+'&order_id='+order_id+'&pub_id='+pub_id+'&page_num='+page_num+'&asset_type='+asset_type+'&asset_num='+asset_num+'&img='+img+'&type='+type+'', function(data) {
+	 	   $('#panel').html(data);
+	 	   $('#content-overlay').show();
+	 	   $('#panel').slideDown('slow');	   
+	    });
+	
+	}
+
+function closePanel() {
+   		$('#content-overlay').fadeOut('slow');
+   		$('#panel').slideUp('slow');	   
+	}
+
     

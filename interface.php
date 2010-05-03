@@ -90,7 +90,7 @@ if ($task == "getMap") { echo getMap($pub_id, $page_num, $user_id, $order_id); }
 		if ($num==0 && $row['asset_typ'] == "Page") { echo "<h3 class=\"todo-page-title ".$emptypage."\"><a class=\"hand\" onClick=\"loadPreview(".$row['pub_id'].",".$row['page_num'].",'".$user_id."','".$order_id."')\">Cover ".$row['asset_typ']."</a></h3>\n<div><ul id=\"todo\" class=\"todo\">"; }
 	    if ($num>=1 && $row['asset_typ'] == "Page") { echo "</ul></div>\n<h3 class=\"todo-page-title ".$emptypage."\"><a class=\"hand\" onClick=\"loadPreview(".$row['pub_id'].",".$row['page_num'].",'".$user_id."','".$order_id."')\">".$row['asset_typ']." ".$row['page_num']."</a></h3>\n<div><ul id=\"todo\" class=\"todo\">"; }
 		if ($num>=1 && $row['asset_typ'] != "Page") { if ($row['asset_num'] <= 1) { $asset_num = ""; } else { $asset_num = $row['asset_num']; } 
-		echo "<li class=\"".$listclass."\"><a title=\"Page ".$row['page_num']." - ".$row['asset_typ']." ".$row['asset_num']."\" class=\"thickbox\" href=\"upload.php?id=".$row['id']."&user_id=".$user_id."&order_id=".$order_id."&pub_id=".$pub_id."&page_num=".$row['page_num']."&asset_type=".$row['asset_typ']."&asset_num=".$row['asset_num']."&img=".$row['asset_img']."&type=".$row['asset_typ']."&KeepThis=true&TB_iframe=true&height=140&width=340\">".$row['asset_typ']." ".$asset_num."</a></li>"; }
+		echo "<li class=\"".$listclass."\"><a title=\"Page ".$row['page_num']." - ".$row['asset_typ']." ".$row['asset_num']."\" onClick=\"panel('".$row['id']."','".$user_id."','".$order_id."','".$pub_id."','".$row['page_num']."','".$row['asset_typ']."','".$row['asset_num']."','".$row['asset_img']."','".$row['asset_typ']."')\" id=\"".$row['asset_typ'].$row['asset_num']."\">".$row['asset_typ']." ".$asset_num."</a></li>"; }
 		$num++;
 		
 		
@@ -148,7 +148,7 @@ if ($task == "getMap") { echo getMap($pub_id, $page_num, $user_id, $order_id); }
  
 			$ratio = 444 / $document_width;
  
- 
+ 		$zindex = "0";
 		$pub_id = sprintf("%05d",$pub_id);
 		$query = "SELECT  * FROM assets WHERE pub_id = '".$pub_id."' AND page_num = '".$page_num."' ORDER BY CASE  WHEN asset_typ = 'Page' THEN 1 WHEN asset_typ = 'Body copy' THEN 5 WHEN asset_img = '1' THEN 4 ELSE 3 END , asset_typ";
 		$result = mysql_query($query) or die(mysql_error());
@@ -156,19 +156,43 @@ if ($task == "getMap") { echo getMap($pub_id, $page_num, $user_id, $order_id); }
 		$num = 0;
 		$page_spread = 0;
 		// Start the image map
-		echo "<MAP NAME=\"map\">";
+		//echo "<MAP NAME=\"map\">";
 			while($row = mysql_fetch_array($result)){
+					
+					//order the css z-index value so overlapping elements do not cover each other.
+					if ($row['asset_typ'] == "Body copy") {$zindex = 5;} else {
+					if ($row['asset_img'] == 1) {$zindex = 10;} else {
+					$zindex = 15;	
+					}
+					} 
+					
+					//resize the coordinates in relation to the scaled image
 					if ($row['asset_x1'] == 0 && $row['asset_typ'] == "Page" && $num == 0) { $document_width = 0; } 
 					$x1 = ($row['asset_x1'] - $document_width) * $ratio; $x1=(int)$x1;
 					$x2 = ($row['asset_x2'] - $document_width) * $ratio; $x2=(int)$x2;
 					$y1 = $row['asset_y1'] * $ratio; $y1=(int)$y1;
 					$y2 = $row['asset_y2'] * $ratio; $y2=(int)$y2;
+					
+					//calculate the div dimensions and margins
+					$divwidth = abs($x2-$x1);
+					$divheight = abs($y2-$y1);
+					$divtop = abs($y1);
+					$divleft = abs($x1);
+
+					//adjust margins for div borders
+					$divtop = $divtop - 2;
+					$divleft = $divleft - 1;
+					
+					//strip the number off of the first elements so they correlate with nav
+					if ($row['asset_num'] == 1) { $asset_num = "";}
+					
 					if ($row['asset_typ'] != "Page") {
-						echo "<AREA class=\"thickmap tip\" title=\"".$row['asset_typ']." ".$row['asset_num']."\" SHAPE=\"rect\" COORDS=\"".$x1.",".$y1.",".$x2.",".$y2."\" title=\"Page ".$row['page_num']." - ".$row['asset_typ']." ".$row['asset_num']."\" href=\"upload.php?id=".$row['id']."&user_id=".$user_id."&order_id=".$order_id."&pub_id=".$pub_id."&page_num=".$row['page_num']."&asset_type=".$row['asset_typ']."&asset_num=".$row['asset_num']."&img=".$row['asset_img']."&type=".$row['asset_typ']."&KeepThis=true&TB_iframe=true&height=140&width=340\" id=\"".$row['asset_typ'].$row['asset_num']."\">";
+						echo "<a class=\"tips\" title=\"".$row['asset_typ']." ".$asset_num."\" onClick=\"panel('".$row['id']."','".$user_id."','".$order_id."','".$pub_id."','".$row['page_num']."','".$row['asset_typ']."','".$row['asset_num']."','".$row['asset_img']."','".$row['asset_typ']."')\" id=\"".$row['asset_typ'].$row['asset_num']."\"><div class=\"maps\" style=\"z-index: ".$zindex."; position: absolute; border: 2px dashed #723882; width: ".$divwidth."px; height: ".$divheight."px; top: ".$divtop."px; left: ".$divleft."px;\"></div></a>\n";
+						//						echo "<AREA class=\"thickmap tip\" title=\"".$row['asset_typ']." ".$row['asset_num']."\" SHAPE=\"rect\" COORDS=\"".$x1.",".$y1.",".$x2.",".$y2."\" title=\"Page ".$row['page_num']." - ".$row['asset_typ']." ".$row['asset_num']."\" href=\"upload.php?id=".$row['id']."&user_id=".$user_id."&order_id=".$order_id."&pub_id=".$pub_id."&page_num=".$row['page_num']."&asset_type=".$row['asset_typ']."&asset_num=".$row['asset_num']."&img=".$row['asset_img']."&type=".$row['asset_typ']."&KeepThis=true&TB_iframe=true&height=140&width=340\" id=\"".$row['asset_typ'].$row['asset_num']."\">";
 					}
 					$num++;
 				}
-		echo "</MAP>";
+		//echo "</MAP>";
 	}
  
  

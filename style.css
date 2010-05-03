@@ -69,7 +69,8 @@ div#top-bar {
 
 div#top-bar-spacer {
 	width: 960px;
-	height: 24px;	
+	height: 24px;
+	position: relative;	
 }
 
 div#content-wrapper {
@@ -77,6 +78,8 @@ div#content-wrapper {
 	margin: 0 auto;
 	background: #FFFFFF;	
 	border: 1px solid #C7C7C7;
+	height: 1043px;
+	position: relative;
 }
 
 div.content {
@@ -89,7 +92,8 @@ div.content {
 div.the-box-template {
 	width: 444px;
 	float: right;
-	border: 3px dashed #E7E7E7;	
+	border: 3px dashed #E7E7E7;
+	position: relative;	
 }
 
 div#load {
@@ -235,4 +239,29 @@ ul.todo li.have {
 	opacity: 0.90;
 	color: #ffffff;
 }
-	#tooltip h3, #tooltip div { margin: 0; }
+
+#tooltip h3, #tooltip div { margin: 0; }
+
+/*___END_PREVIEW_PROPERTIES___*/
+
+
+
+/*========================.
+| Jquery tooltip old      |
+|________________________*/	
+#panel {
+	position: absolute;
+	z-index: 11000;
+	border: 1px solid #606060;
+	background-color: #ffffff;
+	padding: 18px;
+	top: 0px;
+	left: 240px;
+	width: 440px;
+	height: 200px;
+	display: none;
+}
+
+
+
+/*___END_PREVIEW_PROPERTIES___*/

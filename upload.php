@@ -19,7 +19,7 @@
                     if(data === '1') { $('#resp').html("Successfuly saved!"); }
                     if(data === '0') { $('#resp').html("Error: Please try again."); }
                     parent.getTodo("<?php echo $_GET['user_id']; ?>", "<?php echo $_GET['order_id']; ?>");
-                    parent.loadPreview("<?php echo $_GET['pub_id']; ?>", "<?php echo $_GET['page_num']; ?>","<?php echo $_GET['user_id']; ?>", "<?php echo $_GET['order_id']; ?>");
+                    closePanel();
 				} );
 //               $.get('textin.php?='+$('#login2').val(), function(data) {
 //                  if(data === 'allow') {  window.location = "index.php?code="+data+"&pass=64v50" }
@@ -71,8 +71,8 @@
 							
 				// enable upload button
 				// this.enable();
-				parent.getTodo("<?php echo $_GET['user_id']; ?>", "<?php echo $_GET['order_id']; ?>");
-				
+				//parent.getTodo("<?php echo $_GET['user_id']; ?>", "<?php echo $_GET['order_id']; ?>");
+				//panelClose();
 				// add file to the list
 				// $('<li></li>').appendTo('#upload1 .files').text(file);						
 			}
