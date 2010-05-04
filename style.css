@@ -247,7 +247,7 @@ ul.todo li.have {
 
 
 /*========================.
-| Jquery tooltip old      |
+| Panel/Upload Properties |
 |________________________*/	
 #panel {
 	position: absolute;
@@ -262,6 +262,17 @@ ul.todo li.have {
 	display: none;
 }
 
+span#breadcrumb-page {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+span#breadcrumb-asset {
+	font-size: 14px;
+	font-weight: normal;
+}
+
+/*___END_PANEL/UPLOAD_PROPERTIES___*/
 
 
-/*___END_PREVIEW_PROPERTIES___*/
+

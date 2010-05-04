@@ -9,22 +9,22 @@
 <html>
 <head>
 
-	<link rel = "stylesheet" type="text/css" href="css/thickbox.css" >
+<!--<link rel = "stylesheet" type="text/css" href="css/thickbox.css" >-->
 	<link rel = "stylesheet" type="text/css" href="style.css" > 
 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="js/jquery.maphilight.min.js"></script>
-<!-- <script type="text/javascript" src="js/thickbox-compressed.js"></script> -->
+<!--<script type="text/javascript" src="js/jquery.maphilight.min.js"></script>-->
+<!--<script type="text/javascript" src="js/thickbox-compressed.js"></script> -->
 	<script type="text/javascript" src="js/jquery.dimensions.min.js"></script>
 	<script type="text/javascript" src="js/jquery.tooltip.min.js"></script> 
-
+    <script type="text/javascript" src="js/ajaxupload.js"></script>
 		<script type="text/javascript" src="interface.js"></script>
 
 
 					<script type="text/javascript">
 					$(document).ready(function() {
-					    getTodo("<?php echo $_GET['user_id']; ?>", "<?php echo $_GET['order_id']; ?>");
+					    getTodo("<?php echo $_GET['user_id']; ?>", "<?php echo $_GET['order_id']; ?>", 0);
 					});
 					</script>
 
@@ -34,22 +34,6 @@
 //		var user_id = "<?php print $_GET['user_id']; ?>"
 		</script>
 			
-
-
-		<script type="text/javascript">
-        $.fn.maphilight.defaults = {
-                fill: true,
-                fillColor: '723882',
-                fillOpacity: 0.0,
-                stroke: true,
-                strokeColor: '723882',
-                strokeOpacity: .6,
-                strokeWidth: 2,
-                fade: false,
-                alwaysOn: true
-        }
-		</script>
-	
 </head>
 <body>
 

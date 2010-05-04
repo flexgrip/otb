@@ -70,6 +70,7 @@ if ($task == "getMap") { echo getMap($pub_id, $page_num, $user_id, $order_id); }
 	
 	$num = 0;
 	$listclass = "";
+
 	// Print out the contents of each row into a table 
 	while($row = mysql_fetch_array($result)){
 		//First check to see if the asset id exists
@@ -77,7 +78,12 @@ if ($task == "getMap") { echo getMap($pub_id, $page_num, $user_id, $order_id); }
 		$mysql_num = mysql_num_rows($sql);
 			if ($mysql_num >= 1) { $listclass = "have"; }
 			else { $listclass = "need";} 
-
+			
+			//pipe the data of the completed item back to the list.
+			$data = "";
+			while($comp = mysql_fetch_array($sql)){
+			if ($comp['data']) { $data = $comp['data']; } else { $data = ""; }
+			}
 		//Now check for empty pages (REDO THIS IMMEDIATELY. TOO MANY SQL CALLS. YOU SHOULD BE ABLE TO DO THIS IN ONE QUERY IF YOU WERE REALLY AS SMART AS YOU SAY YOU ARE.)	
 		if ($row['asset_typ'] == "Page") {
 			$sql = mysql_query("SELECT * FROM assets WHERE page_num = '".$row['page_num']."' AND pub_id = '".$pub_id."'") or die ("query 1: " . mysql_error());
@@ -90,7 +96,7 @@ if ($task == "getMap") { echo getMap($pub_id, $page_num, $user_id, $order_id); }
 		if ($num==0 && $row['asset_typ'] == "Page") { echo "<h3 class=\"todo-page-title ".$emptypage."\"><a class=\"hand\" onClick=\"loadPreview(".$row['pub_id'].",".$row['page_num'].",'".$user_id."','".$order_id."')\">Cover ".$row['asset_typ']."</a></h3>\n<div><ul id=\"todo\" class=\"todo\">"; }
 	    if ($num>=1 && $row['asset_typ'] == "Page") { echo "</ul></div>\n<h3 class=\"todo-page-title ".$emptypage."\"><a class=\"hand\" onClick=\"loadPreview(".$row['pub_id'].",".$row['page_num'].",'".$user_id."','".$order_id."')\">".$row['asset_typ']." ".$row['page_num']."</a></h3>\n<div><ul id=\"todo\" class=\"todo\">"; }
 		if ($num>=1 && $row['asset_typ'] != "Page") { if ($row['asset_num'] <= 1) { $asset_num = ""; } else { $asset_num = $row['asset_num']; } 
-		echo "<li class=\"".$listclass."\"><a title=\"Page ".$row['page_num']." - ".$row['asset_typ']." ".$row['asset_num']."\" onClick=\"panel('".$row['id']."','".$user_id."','".$order_id."','".$pub_id."','".$row['page_num']."','".$row['asset_typ']."','".$row['asset_num']."','".$row['asset_img']."','".$row['asset_typ']."')\" id=\"".$row['asset_typ'].$row['asset_num']."\">".$row['asset_typ']." ".$asset_num."</a></li>"; }
+		echo "<li class=\"".$listclass."\"><a href=\"#\" title=\"Page ".$row['page_num']." - ".$row['asset_typ']." ".$row['asset_num']."\" onClick=\"panel('".$row['id']."','".$user_id."','".$order_id."','".$pub_id."','".$row['page_num']."','".$row['asset_des']."','".$row['asset_typ']."','".$row['asset_num']."','".$row['asset_img']."','".$row['asset_typ']."','".$data."')\" id=\"".$row['asset_typ'].$row['asset_num']."\">".$row['asset_typ']." ".$asset_num."</a></li>"; }
 		$num++;
 		
 		
@@ -155,9 +161,22 @@ if ($task == "getMap") { echo getMap($pub_id, $page_num, $user_id, $order_id); }
  
 		$num = 0;
 		$page_spread = 0;
+
 		// Start the image map
 		//echo "<MAP NAME=\"map\">";
 			while($row = mysql_fetch_array($result)){
+			
+				//First check to see if the asset id exists
+				$sql = mysql_query("SELECT * FROM completed WHERE user_id = '".$user_id."' AND asset_id = '".$row['id']."' AND order_id = '".$order_id."'") or die ("query 1: " . mysql_error());
+				$mysql_num = mysql_num_rows($sql);
+					if ($mysql_num >= 1) { $listclass = "have"; }
+					else { $listclass = "need";} 
+					
+					//pipe the data of the completed item back to the list.
+					$data = "";
+					while($comp = mysql_fetch_array($sql)){
+					$data = $comp['data'];
+					}	
 					
 					//order the css z-index value so overlapping elements do not cover each other.
 					if ($row['asset_typ'] == "Body copy") {$zindex = 5;} else {
@@ -184,10 +203,11 @@ if ($task == "getMap") { echo getMap($pub_id, $page_num, $user_id, $order_id); }
 					$divleft = $divleft - 1;
 					
 					//strip the number off of the first elements so they correlate with nav
+					$asset_num = "";
 					if ($row['asset_num'] == 1) { $asset_num = "";}
 					
 					if ($row['asset_typ'] != "Page") {
-						echo "<a class=\"tips\" title=\"".$row['asset_typ']." ".$asset_num."\" onClick=\"panel('".$row['id']."','".$user_id."','".$order_id."','".$pub_id."','".$row['page_num']."','".$row['asset_typ']."','".$row['asset_num']."','".$row['asset_img']."','".$row['asset_typ']."')\" id=\"".$row['asset_typ'].$row['asset_num']."\"><div class=\"maps\" style=\"z-index: ".$zindex."; position: absolute; border: 2px dashed #723882; width: ".$divwidth."px; height: ".$divheight."px; top: ".$divtop."px; left: ".$divleft."px;\"></div></a>\n";
+						echo "<a href=\"#\" class=\"tips\" title=\"".$row['asset_typ']." ".$asset_num."\" onClick=\"panel('".$row['id']."','".$user_id."','".$order_id."','".$pub_id."','".$row['page_num']."','".$row['asset_des']."','".$row['asset_typ']."','".$row['asset_num']."','".$row['asset_img']."','".$row['asset_typ']."','".$data."')\" id=\"".$row['asset_typ'].$row['asset_num']."\"><div class=\"maps\" style=\"z-index: ".$zindex."; position: absolute; border: 2px dashed #723882; width: ".$divwidth."px; height: ".$divheight."px; top: ".$divtop."px; left: ".$divleft."px;\"></div></a>\n";
 						//						echo "<AREA class=\"thickmap tip\" title=\"".$row['asset_typ']." ".$row['asset_num']."\" SHAPE=\"rect\" COORDS=\"".$x1.",".$y1.",".$x2.",".$y2."\" title=\"Page ".$row['page_num']." - ".$row['asset_typ']." ".$row['asset_num']."\" href=\"upload.php?id=".$row['id']."&user_id=".$user_id."&order_id=".$order_id."&pub_id=".$pub_id."&page_num=".$row['page_num']."&asset_type=".$row['asset_typ']."&asset_num=".$row['asset_num']."&img=".$row['asset_img']."&type=".$row['asset_typ']."&KeepThis=true&TB_iframe=true&height=140&width=340\" id=\"".$row['asset_typ'].$row['asset_num']."\">";
 					}
 					$num++;

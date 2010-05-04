@@ -1,9 +1,8 @@
 <html>
 <head>
-	<link rel = "stylesheet" type="text/css" href="style.css" >
-	
-    <script type="text/javascript" src="js/ajaxupload.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<?php $page_number = $page_num - 1; ?>
+
+
 		<script>
 			function submitText() {
 				$.post("textin.php", { 
@@ -18,7 +17,7 @@
 				},function(data){ 
                     if(data === '1') { $('#resp').html("Successfuly saved!"); }
                     if(data === '0') { $('#resp').html("Error: Please try again."); }
-                    parent.getTodo("<?php echo $_GET['user_id']; ?>", "<?php echo $_GET['order_id']; ?>");
+                    getTodo("<?php echo $_GET['user_id']; ?>", "<?php echo $_GET['order_id']; ?>", <?php echo $page_number; ?>);
                     closePanel();
 				} );
 //               $.get('textin.php?='+$('#login2').val(), function(data) {
@@ -80,17 +79,27 @@
 	});
 	</script>
 <?php } ?>
+
+<?php
+	$asset_number = $asset_num;
+	$page_number = $page_num; 
+	if ($asset_number <= 1) { $asset_number = ""; }
+	if ($page_number <= 1) { $page_number = "Cover Page";} else { $page_number = "Page " . $page_number; } 
+?>
+
 </head>
 
 <body>
 <div id="resp" style="width: 100%; background-color: red; color: white; font-size: 22px"></div>
+<span id="breadcrumb-page"><?php echo $page_number . " > "; ?></span><span id="breadcrumb-asset"><?php echo $asset_type . " " .$asset_number; ?></span>
+</span>
 <form onsubmit="return false;">
 <?php if ($img != "1") {?>
-<p>Some instructions go here.</p>
+<?php if ($asset_des) { ?><p><?php echo $asset_des; ?></p><?php } ?>
 <?php if ( strpos($type, 'copy') !== false ) { ?>
 Your copy:<br /> <textarea id="textin"></textarea><br />
 <?php } else {?>
-Your text:<br /> <input type="text" name="firstname" id="textin"/><br />
+Your text:<br /> <input type="text" name="firstname" id="textin" value="<?php echo $data; ?>"/><br />
 <?php } ?>
 <input align="right" type="submit" onClick="submitText()" value="Submit" />
 <?php } ?>
