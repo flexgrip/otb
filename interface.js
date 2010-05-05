@@ -43,7 +43,8 @@ function panel(id,user_id,order_id,pub_id,page_num,asset_des,asset_type,asset_nu
 
 function closePanel() {
    		$('#content-overlay').fadeOut('slow');
-   		$('#panel').slideUp('slow');	   
+   		setTimeout("$('#panel').slideUp('slow')",1000);
+   			   
 	}
 
     

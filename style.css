@@ -272,6 +272,42 @@ span#breadcrumb-asset {
 	font-weight: normal;
 }
 
+	/* Upload/Submit/Cancel Buttons */
+	
+	div.wrapper {
+	margin-top: 8px;
+	cursor: pointer; 
+	float: left; 
+	background: url(images/uploadbutton.png) 0 0 no-repeat; 
+	width: 100px; 
+	height: 38px; 
+	font-size: 18px; 
+	color: #ffffff;
+	}
+	
+	div.cancel {
+	margin-left: 6px;
+	}
+
+#resp-good {
+	position: absolute; 
+	top: 0; 
+	left: 0;
+	width: 100%; 
+	background-color: #74B63E; 
+	color: white; 
+	font-size: 22px
+}
+	
+#resp-bad {
+	position: absolute; 
+	top: 0; 
+	left: 0;
+	width: 100%; 
+	background-color: red; 
+	color: white; 
+	font-size: 22px
+}
 /*___END_PANEL/UPLOAD_PROPERTIES___*/
 
 
