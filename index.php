@@ -25,14 +25,9 @@
 					<script type="text/javascript">
 					$(document).ready(function() {
 					    getTodo("<?php echo $_GET['user_id']; ?>", "<?php echo $_GET['order_id']; ?>", 0);
+					    /* loadPreview(pub_id,page_num,"<?php echo $_GET['user_id']; ?>", "<?php echo $_GET['order_id']; ?>") */
 					});
 					</script>
-
-<!-- Ajax/js value scripting -->
-		<script type="text/javascript">
-//		var order_id = "<?php print $_GET['order_id']; ?>"
-//		var user_id = "<?php print $_GET['user_id']; ?>"
-		</script>
 			
 </head>
 <body>
@@ -41,10 +36,7 @@
 <input type="hidden" id=""></input>
 
 	<div id="container">
-		<div id="header">
-			<a onClick="panel()" href="#"><div id="otb-logo"></div></a>
-			<div id="cl-logo"></div>
-		</div>
+		<?php include('inc/header.php'); ?>
 		
 		<div id="content-wrapper">
 			<div id="content-overlay" style="width: 100%; height: 1043px; background: #000000; opacity: .5; position: absolute; top: 0px; left: 0px; z-index: 10000; display: none;"></div>
@@ -69,10 +61,7 @@
 				<div class="hidden" id="load">
 					<img src="images/loading46-edited.gif" width="444" height="550" style="display: block;" />
 				</div>
-				
-				<div class="the-box-support-options">
-					<img src="images/support_options.jpg" />
-				</div>
+
 				
 			<div style="clear: both;"></div>	
 			</div>

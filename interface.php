@@ -32,6 +32,7 @@ require 'scripts/dbconnect.php';
 #                                                                                 #
 if ($task == "todo") { $pub_id = getpub($user_id, $order_id); echo todo($pub_id, $user_id, $order_id); }
 if ($task == "getMap") { echo getMap($pub_id, $page_num, $user_id, $order_id); }
+if ($task == "completion") { echo completion($pub_id, $user_id, $order_id); }
 ###################################################################################
  
  
@@ -204,7 +205,7 @@ if ($task == "getMap") { echo getMap($pub_id, $page_num, $user_id, $order_id); }
 					
 					//strip the number off of the first elements so they correlate with nav
 					$asset_num = "";
-					if ($row['asset_num'] == 1) { $asset_num = "";}
+					if ($row['asset_num'] == 1) { $asset_num = "";} else { $asset_num = $row['asset_num']; }
 					
 					if ($row['asset_typ'] != "Page") {
 						echo "<a href=\"#\" class=\"tips\" title=\"".$row['asset_typ']." ".$asset_num."\" onClick=\"panel('".$row['id']."','".$user_id."','".$order_id."','".$pub_id."','".$row['page_num']."','".$row['asset_des']."','".$row['asset_typ']."','".$row['asset_num']."','".$row['asset_img']."','".$row['asset_typ']."','".$data."')\" id=\"".$row['asset_typ'].$row['asset_num']."\"><div class=\"maps\" style=\"z-index: ".$zindex."; position: absolute; border: 2px dashed #723882; width: ".$divwidth."px; height: ".$divheight."px; top: ".$divtop."px; left: ".$divleft."px;\"></div></a>\n";
@@ -214,7 +215,19 @@ if ($task == "getMap") { echo getMap($pub_id, $page_num, $user_id, $order_id); }
 				}
 		//echo "</MAP>";
 	}
- 
+
+	function completion($pub_id, $user_id, $order_id) {
+		
+		$sql1 = mysql_query("SELECT * FROM assets WHERE pub_id = '".$pub_id."' AND asset_typ != 'Page'") or die ("query 1: " . mysql_error());
+		$total = mysql_num_rows($sql1);	
+		
+		$sql2 = mysql_query("SELECT * FROM completed WHERE user_id = '".$user_id."' AND order_id = '".$order_id."'") or die ("query 1: " . mysql_error());
+		$completed = mysql_num_rows($sql2);
+
+		$percent = ($completed / $total) * 100;
+		$percent = (int)$percent;
+		return $percent;
+	}
  
  
 ?>

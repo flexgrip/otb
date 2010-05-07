@@ -1,0 +1,1 @@
+<p class="fineprint">&copy;2010 CommunityLink, a division of Craig Williams Creative, Inc.</p>

@@ -47,4 +47,12 @@ function closePanel() {
    			   
 	}
 
+function completion(pub_id,user_id,order_id) {
+	$.get('interface.php?pub_id='+pub_id+'&user_id='+user_id+'&order_id='+order_id+'&task=completion', function(percent) {
+		var perc;
+		perc = parseInt(percent);
+		$("#progressbar").progressbar({ value: perc });
+
+    });
+}	
     

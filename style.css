@@ -42,7 +42,7 @@ div#container {
 
 div#header {
 	width: 960px;
-	height:	91px;
+	height:	60px;
 }
 
 div#otb-logo {
@@ -63,8 +63,8 @@ div#top-bar {
 	width: 960px;
 	height: 33px;
 	background: #565656;
-	border-bottom: 1px solid #C7C7C7;
-	clear: both;	
+	border-bottom: 1px solid #C7C7C7;	
+	margin-bottom: 20px;
 }
 
 div#top-bar-spacer {
@@ -255,7 +255,7 @@ ul.todo li.have {
 	border: 1px solid #606060;
 	background-color: #ffffff;
 	padding: 18px;
-	top: 0px;
+	top: -20px;
 	left: 240px;
 	width: 440px;
 	height: 200px;
@@ -310,5 +310,80 @@ span#breadcrumb-asset {
 }
 /*___END_PANEL/UPLOAD_PROPERTIES___*/
 
+/*========================.
+| Bradditions      |
+|________________________*/
 
+#header img {
+	border: 0;
+}
+
+#load {
+		display: none;
+	}
+.clear {
+	clear: both;
+}
+#top-bar {
+
+}
+.infoBox {
+	width: 386px;
+	border: 1px solid #E7E7E7;
+	background-image: url('images/boxbg2.png');
+	background-repeat: repeat-x;
+	margin-bottom: 24px;
+	padding: 16px;
+	min-height: 150px;
+}
+.infoBox h2 {
+	margin-top: 0;
+}
+a {
+	color: #9c25be;
+}
+.floatLeft {
+	float: left;
+}
+.floatRight {
+	float: right;
+}
+.centered {
+	margin-left: auto;
+	margin-right: auto;
+}
+#myPublication {
+	min-height: 280px;
+}
+#myVideo {
+	min-height: 280px;
+}
+#myServices {
+
+}
+#mySupport {
+
+}
+#mySalesKit {
+
+}
+#player {
+	display:block;
+	width:380px;
+	height:209px;
+	margin: 0 auto;
+}
+.loginform label, input {
+	display: block;
+}
+.loginform input {
+	margin-bottom: 4px;
+}
+.forgotpassword, .fineprint {
+	font-size: .8em;
+}
+.fineprint {
+	text-align: center;
+}
+/*___END_BRADDITIONS___*/
 
